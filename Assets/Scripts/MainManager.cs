@@ -14,9 +14,9 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    private int _points;
     
-    private bool m_GameOver = false;
+    private bool _gameOver = false;
 
     
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class MainManager : MonoBehaviour
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
-        else if (m_GameOver)
+        else if (_gameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -64,13 +64,14 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        _points += point;
+        ScoreText.text = $"Score : {_points}";
     }
 
     public void GameOver()
     {
-        m_GameOver = true;
+        HighScore.Instance.CompareScore(_points);
+        _gameOver = true;
         GameOverText.SetActive(true);
     }
 }
