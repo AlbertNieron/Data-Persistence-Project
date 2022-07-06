@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using TMPro;
 
 public class HighScore : MonoBehaviour
 {
+	[SerializeField] private TMP_Text _bestScore;
 	public static HighScore Instance;
 	public string CurrentName;
 	public string HighscoreName;
@@ -13,11 +15,18 @@ public class HighScore : MonoBehaviour
 	{
 		if(Instance != null)
 		{
+			LoadHighscore();
+			PrintBestScore(_bestScore);
 			Destroy(gameObject);
 			return;
 		}
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
+	}
+	private void Start()
+	{
+		LoadHighscore();
+		PrintBestScore(_bestScore);
 	}
 	public void CompareScore(int score)
 	{
@@ -27,6 +36,11 @@ public class HighScore : MonoBehaviour
 			Score = score;
 			SaveHighscore();
 		}
+	}
+	public void PrintBestScore(TMP_Text scoreView)
+	{
+		string text = "Best score: " + HighscoreName + ": " + Score;
+		scoreView.text = text;
 	}
 
 	[System.Serializable]
