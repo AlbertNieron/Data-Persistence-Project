@@ -35,6 +35,7 @@ public class HighScore : MonoBehaviour
 			HighscoreName = CurrentName;
 			Score = score;
 			SaveHighscore();
+			PrintBestScore(_bestScore);
 		}
 	}
 	public void PrintBestScore(TMP_Text scoreView)
